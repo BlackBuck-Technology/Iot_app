@@ -133,26 +133,33 @@ class _OnboardingViewState extends State<OnboardingView> {
                 ),
                 SizedBox(height: 24),
 
-                // Skip button
-                _currentPage == 2
-                    ? SizedBox.shrink()
-                    : GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginInScreen(),
+                AnimatedSize(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                  child: _currentPage == 2
+                      ? SizedBox.shrink()
+                      : Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginInScreen(),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Skip",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          "Skip",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          ],
                         ),
-                      ),
+                ),
 
                 SizedBox(height: 48),
               ],
