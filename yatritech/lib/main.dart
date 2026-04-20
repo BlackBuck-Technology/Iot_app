@@ -11,6 +11,8 @@ import 'package:yatritech/common/service_call.dart';
 import 'package:yatritech/common/socket_manager.dart';
 import 'package:yatritech/screens/user/bottom_nav.dart';
 import 'package:yatritech/screens/user/login_in_screen.dart';
+import 'package:yatritech/screens/user/onboarding/onboarding_screen.dart';
+import 'package:yatritech/screens/user/onboarding/onboarding_view.dart';
 import 'package:yatritech/screens/user/sign_up_screen.dart';
 
 SharedPreferences? prefs;
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
       title: 'yatriTECH',
       theme: ThemeData(textTheme: GoogleFonts.varelaRoundTextTheme()),
       debugShowCheckedModeBanner: false,
-      home: LoginInScreen(),
+      home: OnboardingView(),
     );
   }
 }
