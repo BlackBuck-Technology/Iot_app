@@ -1,6 +1,9 @@
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:yatritech/screens/user/KYC/kyc_first_card.dart';
+import 'package:yatritech/screens/user/KYC/kyc_fourth_card.dart';
+import 'package:yatritech/screens/user/KYC/kyc_second_card.dart';
+import 'package:yatritech/screens/user/KYC/kyc_third_card.dart';
 
 class KycView extends StatefulWidget {
   const KycView({super.key});
@@ -16,6 +19,20 @@ class _KycViewState extends State<KycView> {
 
   //page view controller
   final PageController _kycPageController = PageController();
+
+  @override
+  void dispose() {
+    _kycPageController.dispose();
+    super.dispose();
+  }
+
+  void openKycNextPage() {
+    _kycPageController.nextPage(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +60,7 @@ class _KycViewState extends State<KycView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Upload KYC",
+                    "Verify KYC",
                     style: TextStyle(
                       fontSize: 28,
                       color: Colors.black,
@@ -71,18 +88,30 @@ class _KycViewState extends State<KycView> {
             Expanded(
               child: PageView(
                 controller: _kycPageController,
-                children: [KycFirstCard()],
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentStep = index;
+                  });
+                },
+                children: [
+                  KycFirstCard(),
+                  KycSecondCard(),
+                  KycThirdCard(),
+                  KycFourthCard(),
+                ],
               ),
             ),
 
             //Next and Submit button
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                openKycNextPage();
+              },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 16),
                 padding: EdgeInsets.symmetric(vertical: 15),
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Color(0xff216FFE),
                   borderRadius: BorderRadius.circular(28),
                 ),
                 child: Row(

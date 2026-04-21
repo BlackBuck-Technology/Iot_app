@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class KycFirstCard extends StatefulWidget {
-  const KycFirstCard({super.key});
+class KycThirdCard extends StatefulWidget {
+  const KycThirdCard({super.key});
 
   @override
-  State<KycFirstCard> createState() => _KycFirstCardState();
+  State<KycThirdCard> createState() => _KycThirdCardState();
 }
 
-class _KycFirstCardState extends State<KycFirstCard> {
-  final TextEditingController _dobController = TextEditingController();
+class _KycThirdCardState extends State<KycThirdCard> {
+  final TextEditingController _issuedDateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,15 +30,17 @@ class _KycFirstCardState extends State<KycFirstCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Full Name",
+              "License No.",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
             SizedBox(height: 4),
 
-            //Full Name
+            //License Number
             TextField(
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                hintText: "Enter Your Full Name",
+                hintText: "Enter Your License No.",
+
                 hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xffE5E7EB)),
@@ -53,18 +55,18 @@ class _KycFirstCardState extends State<KycFirstCard> {
 
             SizedBox(height: 20),
 
-            //Date of Birth
+            //Date of Issue
             Text(
-              "Date of Birth",
+              "Date of Issue",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
             SizedBox(height: 4),
 
             TextField(
-              controller: _dobController,
+              controller: _issuedDateController,
               readOnly: true, // Prevents keyboard from appearing
               decoration: InputDecoration(
-                hintText: "Select Date of Birth",
+                hintText: "Select Issued Date",
                 hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 suffixIcon: Icon(Icons.calendar_today),
                 enabledBorder: OutlineInputBorder(
@@ -90,153 +92,23 @@ class _KycFirstCardState extends State<KycFirstCard> {
                   String formattedDate = pickedDate.toString().split(' ')[0];
 
                   setState(() {
-                    _dobController.text = formattedDate;
+                    _issuedDateController.text = formattedDate;
                   });
                 }
               },
             ),
 
             SizedBox(height: 20),
-
-            //Gender and nationality
-            Row(
-              children: [
-                // Gender
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Gender",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      DropdownButtonFormField<String>(
-                        dropdownColor: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        icon: Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: Colors.grey,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: "Select",
-                          hintStyle: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xffE5E7EB)),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff216FFE)),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-                        items: ['Male', 'Female', 'Other'].map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          // state update logic later
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-
-                SizedBox(width: 16), // Sizing between the two dropdowns
-                // Nationality
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Nationality",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      DropdownButtonFormField<String>(
-                        dropdownColor: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        icon: Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          color: Colors.grey,
-                        ),
-                        decoration: InputDecoration(
-                          hintText: "Select",
-                          hintStyle: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xffE5E7EB)),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff216FFE)),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                        ),
-                        items: ['Nepali', 'Indian', 'Other'].map((
-                          String value,
-                        ) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (newValue) {
-                          // state update logic later
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-
-            SizedBox(height: 20),
-
-            // Current Address
             Text(
-              "Current Address",
+              "Place of Issue",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
             SizedBox(height: 4),
-            TextField(
-              decoration: InputDecoration(
-                hintText: "City, Street, House No.",
-                hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffE5E7EB)),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff216FFE)),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
 
-            // Mobile Number
-            Text(
-              "Mobile Number",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-            ),
-            SizedBox(height: 4),
+            //Place of issue
             TextField(
               decoration: InputDecoration(
-                hintText: "Enter Your Mobile Number",
+                hintText: "Enter Your District",
                 hintStyle: TextStyle(fontSize: 14, color: Colors.grey),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xffE5E7EB)),
@@ -251,9 +123,9 @@ class _KycFirstCardState extends State<KycFirstCard> {
 
             SizedBox(height: 20),
 
-            //Upload your Photo
+            //Upload your License
             Text(
-              "Upload your Photo",
+              "License Photo",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
             SizedBox(height: 8),
@@ -334,6 +206,7 @@ class _KycFirstCardState extends State<KycFirstCard> {
                 ),
               ),
             ),
+            SizedBox(height: 20),
           ],
         ),
       ),
