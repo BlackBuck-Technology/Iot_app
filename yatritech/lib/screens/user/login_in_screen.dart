@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yatritech/screens/user/KYC/kyc_view.dart';
 import 'package:yatritech/screens/user/bottom_nav.dart';
 import 'package:yatritech/screens/user/sign_up_screen.dart';
 
@@ -420,7 +421,7 @@ class _LoginInScreenState extends State<LoginInScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SignUpScreen()),
+                  MaterialPageRoute(builder: (context) => KycView()),
                 );
               },
               child: RichText(

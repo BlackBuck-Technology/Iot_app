@@ -1,0 +1,141 @@
+import 'package:easy_stepper/easy_stepper.dart';
+import 'package:flutter/material.dart';
+import 'package:yatritech/screens/user/KYC/kyc_first_card.dart';
+
+class KycView extends StatefulWidget {
+  const KycView({super.key});
+
+  @override
+  State<KycView> createState() => _KycViewState();
+}
+
+class _KycViewState extends State<KycView> {
+  //pagination
+  int _currentStep = 0;
+  final List<String> _steps = ['Personal', 'Citizenship', 'License', 'Vehicle'];
+
+  //page view controller
+  final PageController _kycPageController = PageController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xffF2F2F2),
+
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //back button
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(Icons.chevron_left),
+                ),
+                SizedBox.shrink(),
+              ],
+            ),
+
+            //Top part
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Upload KYC",
+                    style: TextStyle(
+                      fontSize: 28,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 18),
+                  Row(
+                    children: List.generate(_steps.length, (index) {
+                      return Expanded(
+                        child: _buildStepIndicator(
+                          title: _steps[index],
+                          isActive: index <= _currentStep,
+                          isLast: index == _steps.length - 1,
+                        ),
+                      );
+                    }),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 32),
+
+            //card
+            Expanded(
+              child: PageView(
+                controller: _kycPageController,
+                children: [KycFirstCard()],
+              ),
+            ),
+
+            //Next and Submit button
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(vertical: 15),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(28),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Next",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+
+                    // _currentPage == 2
+                    //     ? Text(
+                    //         "Get Started",
+                    //         style: TextStyle(color: Colors.white, fontSize: 18),
+                    //       )
+                    //     : Text(
+                    //         "Next",
+                    //         style: TextStyle(color: Colors.white, fontSize: 18),
+                    //       ),
+                    SizedBox(width: 8),
+                    Icon(Icons.chevron_right, color: Colors.white, size: 18),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStepIndicator({
+    required String title,
+    required bool isActive,
+    required bool isLast,
+  }) {
+    final color = isActive ? Color(0xff155DFC) : Colors.grey.shade400;
+
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 4),
+      child: Column(
+        children: [
+          Text(title, style: TextStyle(color: color)),
+          SizedBox(height: 8),
+          Container(
+            height: 4,
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(4),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
