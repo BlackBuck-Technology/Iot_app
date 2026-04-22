@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:yatritech/screens/user/Forgot_Password/forgot_pass_first_page.dart';
 import 'package:yatritech/screens/user/KYC/kyc_view.dart';
 import 'package:yatritech/screens/user/bottom_nav.dart';
 import 'package:yatritech/screens/user/sign_up_screen.dart';
@@ -277,12 +278,22 @@ class _LoginInScreenState extends State<LoginInScreen> {
                             ],
                           ),
                         ),
-                        Text(
-                          "Forgot password?",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff4DA8DA),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPassFirstPage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "Forgot password?",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff4DA8DA),
+                            ),
                           ),
                         ),
                       ],
@@ -354,93 +365,98 @@ class _LoginInScreenState extends State<LoginInScreen> {
                     ),
 
                     SizedBox(height: 20),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Divider(color: Color(0xffDEE2E6), thickness: 1.18),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 4,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.8),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Text(
-                            "Or continue with",
+
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => KycView()),
+                          );
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            text: "Don't have an account? ",
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 16,
                               color: Color(0xff6C757D),
                             ),
+                            children: [
+                              TextSpan(
+                                text: "Sign up",
+                                style: TextStyle(
+                                  color: Color(0xff4DA8DA),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     ),
 
+                    // Stack(
+                    //   alignment: Alignment.center,
+                    //   children: [
+                    //     Divider(color: Color(0xffDEE2E6), thickness: 1.18),
+                    //     Container(
+                    //       padding: EdgeInsets.symmetric(
+                    //         horizontal: 16,
+                    //         vertical: 4,
+                    //       ),
+                    //       decoration: BoxDecoration(
+                    //         color: Colors.white.withOpacity(0.8),
+                    //         borderRadius: BorderRadius.circular(16),
+                    //       ),
+                    //       child: Text(
+                    //         "Or continue with",
+                    //         style: TextStyle(
+                    //           fontSize: 12,
+                    //           color: Color(0xff6C757D),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(height: 20),
 
-                    Container(
-                      width: double.infinity,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: Color(0xffE9ECEF).withOpacity(0.5),
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.4),
-                          width: 1.18,
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(16),
-                          onTap: () {
-                            // Face ID / Touch ID action
-                          },
-                          child: Center(
-                            child: Text(
-                              "🔐 Face ID / Touch ID",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff343A40),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Container(
+                    //   width: double.infinity,
+                    //   height: 56,
+                    //   decoration: BoxDecoration(
+                    //     color: Color(0xffE9ECEF).withOpacity(0.5),
+                    //     border: Border.all(
+                    //       color: Colors.white.withOpacity(0.4),
+                    //       width: 1.18,
+                    //     ),
+                    //     borderRadius: BorderRadius.circular(16),
+                    //   ),
+                    //   child: Material(
+                    //     color: Colors.transparent,
+                    //     child: InkWell(
+                    //       borderRadius: BorderRadius.circular(16),
+                    //       onTap: () {
+                    //         // Face ID / Touch ID action
+                    //       },
+                    //       child: Center(
+                    //         child: Text(
+                    //           "🔐 Face ID / Touch ID",
+                    //           style: TextStyle(
+                    //             fontSize: 16,
+                    //             fontWeight: FontWeight.bold,
+                    //             color: Color(0xff343A40),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
             ),
 
-            SizedBox(height: 16),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => KycView()),
-                );
-              },
-              child: RichText(
-                text: TextSpan(
-                  text: "Don't have an account? ",
-                  style: TextStyle(fontSize: 16, color: Color(0xff6C757D)),
-                  children: [
-                    TextSpan(
-                      text: "Sign up",
-                      style: TextStyle(
-                        color: Color(0xff4DA8DA),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
             SizedBox(height: 22),
           ],
         ),

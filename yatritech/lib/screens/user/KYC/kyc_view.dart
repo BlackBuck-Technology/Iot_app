@@ -36,8 +36,6 @@ class _KycViewState extends State<KycView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF2F2F2),
-
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,20 +115,15 @@ class _KycViewState extends State<KycView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Next",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-
-                    // _currentPage == 2
-                    //     ? Text(
-                    //         "Get Started",
-                    //         style: TextStyle(color: Colors.white, fontSize: 18),
-                    //       )
-                    //     : Text(
-                    //         "Next",
-                    //         style: TextStyle(color: Colors.white, fontSize: 18),
-                    //       ),
+                    _currentStep == 3
+                        ? Text(
+                            "Submit",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          )
+                        : Text(
+                            "Next",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
                     SizedBox(width: 8),
                     Icon(Icons.chevron_right, color: Colors.white, size: 18),
                   ],
