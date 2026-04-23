@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:yatritech/screens/user/Forgot_Password/forgot_pass_first_page.dart';
 import 'package:yatritech/screens/user/KYC/kyc_view.dart';
 import 'package:yatritech/screens/user/bottom_nav.dart';
-import 'package:yatritech/screens/user/sign_up_screen.dart';
+import 'package:yatritech/screens/user/register_screen.dart';
+import 'package:yatritech/services/auth_service.dart';
 
 class LoginInScreen extends StatefulWidget {
   const LoginInScreen({super.key});
@@ -19,6 +20,44 @@ class _LoginInScreenState extends State<LoginInScreen> {
   final _passwordController = TextEditingController();
   bool rememberMe = false;
   bool _obscurePassword = true;
+
+  //Connecting to server
+
+  final AuthService _authService = AuthService();
+  bool _isLoading = false;
+
+  Future<void> _handleSignIn() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final response = await _authService.signinUser(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        );
+
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => BottomNav()),
+          );
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(e.toString())));
+        }
+      } finally {
+        if (mounted)
+          setState(() {
+            _isLoading = false;
+          });
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -47,16 +86,6 @@ class _LoginInScreenState extends State<LoginInScreen> {
       return 'Password must be at least 6 characters';
     }
     return null;
-  }
-
-  void _handleSignIn() {
-    if (_formKey.currentState!.validate()) {
-      // Form is valid, proceed with sign in
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => BottomNav()),
-      );
-    }
   }
 
   @override
@@ -371,7 +400,9 @@ class _LoginInScreenState extends State<LoginInScreen> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => KycView()),
+                            MaterialPageRoute(
+                              builder: (context) => RegisterScreen(),
+                            ),
                           );
                         },
                         child: RichText(

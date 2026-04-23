@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:yatritech/screens/user/analytics_screen.dart';
-import 'package:yatritech/screens/user/dashboard_screen.dart';
 import 'package:yatritech/screens/user/journey_screen.dart';
 import 'package:yatritech/screens/user/map_screen.dart';
 import 'package:yatritech/screens/user/settings_screen.dart';

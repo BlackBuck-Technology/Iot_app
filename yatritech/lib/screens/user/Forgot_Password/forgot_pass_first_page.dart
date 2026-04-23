@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:yatritech/screens/user/Forgot_Password/forgot_pass_second_page.dart';
 import 'package:yatritech/screens/user/KYC/kyc_first_card.dart';
 import 'package:yatritech/screens/user/KYC/kyc_view.dart';
-import 'package:yatritech/screens/user/sign_up_screen.dart';
 
 class ForgotPassFirstPage extends StatelessWidget {
   const ForgotPassFirstPage({super.key});

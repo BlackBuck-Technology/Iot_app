@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:yatritech/screens/user/login_in_screen.dart';
-import 'package:yatritech/screens/user/sign_up_screen.dart';
 
 class SettingsSecondCard extends StatefulWidget {
   const SettingsSecondCard({super.key});
