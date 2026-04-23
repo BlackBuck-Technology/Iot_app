@@ -160,7 +160,7 @@ class _ForgotPassThirdPageState extends State<ForgotPassThirdPage> {
                   elevation: 0,
                 ),
                 child: const Text(
-                  'Send',
+                  'Change Password',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ),

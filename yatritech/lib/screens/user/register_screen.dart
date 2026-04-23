@@ -112,397 +112,408 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //Logo
-              SizedBox(height: 22),
-              // Align(
-              //   alignment: Alignment.topCenter,
-              //   heightFactor: 0.7,
-              //   child: SvgPicture.asset('assets/YatriConnectLogo.svg'),
-              // ),
-              RichText(
-                text: TextSpan(
-                  text: "Yatri",
-                  style: GoogleFonts.varelaRound(
-                    fontSize: 45,
-                    color: Color(0xff1E5FA1),
-                    fontWeight: FontWeight.w700,
-                  ),
+      body: _isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextSpan(
-                      text: "Tech",
-                      style: TextStyle(color: Color(0xff2FB8C8)),
+                    //Logo
+                    SizedBox(height: 22),
+                    // Align(
+                    //   alignment: Alignment.topCenter,
+                    //   heightFactor: 0.7,
+                    //   child: SvgPicture.asset('assets/YatriConnectLogo.svg'),
+                    // ),
+                    RichText(
+                      text: TextSpan(
+                        text: "Yatri",
+                        style: GoogleFonts.varelaRound(
+                          fontSize: 45,
+                          color: Color(0xff1E5FA1),
+                          fontWeight: FontWeight.w700,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: "Tech",
+                            style: TextStyle(color: Color(0xff2FB8C8)),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 6),
-              Text(
-                "Create an Account",
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Color(0xff343A40),
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-
-              SizedBox(height: 16),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16),
-                padding: EdgeInsets.all(32),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromARGB(25, 0, 0, 0),
-                      offset: Offset(0, 8),
-                      blurRadius: 32,
-                      spreadRadius: 0,
+                    SizedBox(height: 6),
+                    Text(
+                      "Create an Account",
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Color(0xff343A40),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                    BoxShadow(
-                      color: Color.fromARGB(25, 0, 0, 0),
-                      offset: Offset(0, 2),
-                      blurRadius: 8,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Full Name",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff343A40),
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      TextFormField(
-                        controller: _nameController,
-                        keyboardType: TextInputType.name,
-                        validator: _validateName,
-                        decoration: InputDecoration(
-                          hintText: "Enter your Full name",
-                          hintStyle: TextStyle(
-                            color: Color(0xffADB5BD),
-                            fontSize: 14,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.person_outline,
-                            size: 20,
-                            color: Color(0xff6C757D),
-                          ),
-                          filled: true,
-                          fillColor: Color(0xffE9ECEF).withOpacity(0.5),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide.none,
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: Colors.red, width: 1),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 1.5,
-                            ),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 16,
-                          ),
-                        ),
-                      ),
 
-                      SizedBox(height: 20),
-                      Text(
-                        "Email Address",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff343A40),
-                        ),
+                    SizedBox(height: 16),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.all(32),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(28),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(25, 0, 0, 0),
+                            offset: Offset(0, 8),
+                            blurRadius: 32,
+                            spreadRadius: 0,
+                          ),
+                          BoxShadow(
+                            color: Color.fromARGB(25, 0, 0, 0),
+                            offset: Offset(0, 2),
+                            blurRadius: 8,
+                            spreadRadius: 0,
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 8),
-                      TextFormField(
-                        controller: _emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: _validateEmail,
-                        decoration: InputDecoration(
-                          hintText: "Enter your email",
-                          hintStyle: TextStyle(
-                            color: Color(0xffADB5BD),
-                            fontSize: 14,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.email_outlined,
-                            size: 20,
-                            color: Color(0xff6C757D),
-                          ),
-                          filled: true,
-                          fillColor: Color(0xffE9ECEF).withOpacity(0.5),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide.none,
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: Colors.red, width: 1),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 1.5,
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Full Name",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xff343A40),
+                              ),
                             ),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 16,
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(height: 20),
-
-                      Text(
-                        "Password",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff343A40),
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: _obscurePassword,
-                        validator: _validatePassword,
-                        decoration: InputDecoration(
-                          hintText: "Enter your password",
-                          hintStyle: TextStyle(
-                            color: Color(0xffADB5BD),
-                            fontSize: 14,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.lock_outline,
-                            size: 20,
-                            color: Color(0xff6C757D),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obscurePassword
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                              size: 20,
-                              color: Color(0xff6C757D),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
-                          ),
-                          filled: true,
-                          fillColor: Color(0xffE9ECEF).withOpacity(0.5),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide.none,
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: Colors.red, width: 1),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 1.5,
-                            ),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 16,
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(height: 20),
-                      Text(
-                        "Confirm Password",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff343A40),
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      TextFormField(
-                        controller: _confirmPasswordController,
-                        obscureText: _obscureConfirmPassword,
-                        validator: _matchPassword,
-                        decoration: InputDecoration(
-                          hintText: "Re-Enter your password",
-                          hintStyle: TextStyle(
-                            color: Color(0xffADB5BD),
-                            fontSize: 14,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.lock_outline,
-                            size: 20,
-                            color: Color(0xff6C757D),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obscureConfirmPassword
-                                  ? Icons.visibility_off_outlined
-                                  : Icons.visibility_outlined,
-                              size: 20,
-                              color: Color(0xff6C757D),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _obscureConfirmPassword =
-                                    !_obscureConfirmPassword;
-                              });
-                            },
-                          ),
-                          filled: true,
-                          fillColor: Color(0xffE9ECEF).withOpacity(0.5),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide.none,
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(color: Colors.red, width: 1),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(16),
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 1.5,
-                            ),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 16,
-                          ),
-                        ),
-                      ),
-
-                      SizedBox(height: 20),
-
-                      Container(
-                        width: double.infinity,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Color(0xff4DA8DA), Color(0xff73C2FB)],
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xff4DA8DA).withOpacity(0.3),
-                              offset: Offset(0, 10),
-                              blurRadius: 15,
-                              spreadRadius: -3,
-                            ),
-                            BoxShadow(
-                              color: Color(0xff4DA8DA).withOpacity(0.3),
-                              offset: Offset(0, 4),
-                              blurRadius: 6,
-                              spreadRadius: -4,
-                            ),
-                          ],
-                        ),
-                        child: Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                            borderRadius: BorderRadius.circular(16),
-                            onTap: _handleRegister,
-                            onDoubleTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BottomNav(),
+                            SizedBox(height: 8),
+                            TextFormField(
+                              controller: _nameController,
+                              keyboardType: TextInputType.name,
+                              validator: _validateName,
+                              decoration: InputDecoration(
+                                hintText: "Enter your Full name",
+                                hintStyle: TextStyle(
+                                  color: Color(0xffADB5BD),
+                                  fontSize: 14,
                                 ),
-                              );
-                            },
-                            child: Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Register",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
+                                prefixIcon: Icon(
+                                  Icons.person_outline,
+                                  size: 20,
+                                  color: Color(0xff6C757D),
+                                ),
+                                filled: true,
+                                fillColor: Color(0xffE9ECEF).withOpacity(0.5),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide.none,
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1,
                                   ),
-                                  SizedBox(width: 8),
-                                  Icon(
-                                    Icons.chevron_right,
-                                    color: Colors.white,
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1.5,
+                                  ),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: 20),
+                            Text(
+                              "Email Address",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xff343A40),
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            TextFormField(
+                              controller: _emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: _validateEmail,
+                              decoration: InputDecoration(
+                                hintText: "Enter your email",
+                                hintStyle: TextStyle(
+                                  color: Color(0xffADB5BD),
+                                  fontSize: 14,
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.email_outlined,
+                                  size: 20,
+                                  color: Color(0xff6C757D),
+                                ),
+                                filled: true,
+                                fillColor: Color(0xffE9ECEF).withOpacity(0.5),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide.none,
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1,
+                                  ),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1.5,
+                                  ),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: 20),
+
+                            Text(
+                              "Password",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xff343A40),
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            TextFormField(
+                              controller: _passwordController,
+                              obscureText: _obscurePassword,
+                              validator: _validatePassword,
+                              decoration: InputDecoration(
+                                hintText: "Enter your password",
+                                hintStyle: TextStyle(
+                                  color: Color(0xffADB5BD),
+                                  fontSize: 14,
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.lock_outline,
+                                  size: 20,
+                                  color: Color(0xff6C757D),
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obscurePassword
+                                        ? Icons.visibility_off_outlined
+                                        : Icons.visibility_outlined,
                                     size: 20,
+                                    color: Color(0xff6C757D),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscurePassword = !_obscurePassword;
+                                    });
+                                  },
+                                ),
+                                filled: true,
+                                fillColor: Color(0xffE9ECEF).withOpacity(0.5),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide.none,
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1,
+                                  ),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1.5,
+                                  ),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: 20),
+                            Text(
+                              "Confirm Password",
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xff343A40),
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            TextFormField(
+                              controller: _confirmPasswordController,
+                              obscureText: _obscureConfirmPassword,
+                              validator: _matchPassword,
+                              decoration: InputDecoration(
+                                hintText: "Re-Enter your password",
+                                hintStyle: TextStyle(
+                                  color: Color(0xffADB5BD),
+                                  fontSize: 14,
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.lock_outline,
+                                  size: 20,
+                                  color: Color(0xff6C757D),
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obscureConfirmPassword
+                                        ? Icons.visibility_off_outlined
+                                        : Icons.visibility_outlined,
+                                    size: 20,
+                                    color: Color(0xff6C757D),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscureConfirmPassword =
+                                          !_obscureConfirmPassword;
+                                    });
+                                  },
+                                ),
+                                filled: true,
+                                fillColor: Color(0xffE9ECEF).withOpacity(0.5),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide.none,
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1,
+                                  ),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 1.5,
+                                  ),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 16,
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: 20),
+
+                            Container(
+                              width: double.infinity,
+                              height: 56,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color(0xff4DA8DA),
+                                    Color(0xff73C2FB),
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0xff4DA8DA).withOpacity(0.3),
+                                    offset: Offset(0, 10),
+                                    blurRadius: 15,
+                                    spreadRadius: -3,
+                                  ),
+                                  BoxShadow(
+                                    color: Color(0xff4DA8DA).withOpacity(0.3),
+                                    offset: Offset(0, 4),
+                                    blurRadius: 6,
+                                    spreadRadius: -4,
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
+                              child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(16),
+                                  onTap: _handleRegister,
 
-                      SizedBox(height: 20),
-
-                      Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: RichText(
-                            text: TextSpan(
-                              text: "Already have an account? ",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Color(0xff6C757D),
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: "Sign in",
-                                  style: TextStyle(
-                                    color: Color(0xff4DA8DA),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Register",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(width: 8),
+                                        Icon(
+                                          Icons.chevron_right,
+                                          color: Colors.white,
+                                          size: 20,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+
+                            SizedBox(height: 20),
+
+                            Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: "Already have an account? ",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Color(0xff6C757D),
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: "Sign in",
+                                        style: TextStyle(
+                                          color: Color(0xff4DA8DA),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: 20),
+                          ],
                         ),
                       ),
+                    ),
 
-                      SizedBox(height: 20),
-                    ],
-                  ),
+                    SizedBox(height: 22),
+                  ],
                 ),
               ),
-
-              SizedBox(height: 22),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
