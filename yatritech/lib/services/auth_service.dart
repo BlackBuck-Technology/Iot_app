@@ -92,4 +92,18 @@ class AuthService {
       throw Exception(responseData['message'] ?? "Password Reset Failed");
     }
   }
+
+  Future<Map<String, dynamic>> verifyOtp({required String otp}) async {
+    final url = Uri.parse('${ApiConstants.baseUrl}');
+
+    final response = await http.post(url);
+
+    final responseData = jsonDecode(response.body);
+
+    if (response.statusCode == 200 && responseData['success']) {
+      return responseData;
+    } else {
+      throw Exception(responseData['message'] ?? "OTP Verification Failed");
+    }
+  }
 }
