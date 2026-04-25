@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yatritech/screens/user/KYC/kyc_view.dart';
 
 class ProfileSidebarScreen extends StatefulWidget {
   const ProfileSidebarScreen({super.key});
@@ -167,6 +168,14 @@ class _ProfileSidebarScreenState extends State<ProfileSidebarScreen> {
                         ),
                       ],
                     ),
+                  ),
+
+                  ElevatedButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => KycView()),
+                    ),
+                    child: Text("Verify KYC"),
                   ),
 
                   SizedBox(height: 22),

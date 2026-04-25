@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:yatritech/utils/api_constants.dart';
 
 class AuthService {
@@ -45,6 +46,12 @@ class AuthService {
     final responseData = jsonDecode(response.body);
 
     if (response.statusCode == 200 && responseData['success']) {
+
+      //getting Jwt token
+      final String token = responseData['data']['token'];
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('jwt_token', token);
+      
       return responseData;
     } else {
       throw Exception(responseData['message'] ?? "Login failed");
