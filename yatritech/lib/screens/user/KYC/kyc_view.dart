@@ -1,4 +1,3 @@
-import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:yatritech/screens/user/KYC/kyc_first_card.dart';
 import 'package:yatritech/screens/user/KYC/kyc_fourth_card.dart';
@@ -19,6 +18,12 @@ class _KycViewState extends State<KycView> {
 
   //page view controller
   final PageController _kycPageController = PageController();
+
+  //Form Key
+  final _firstCardFormKey = GlobalKey<FormState>();
+  final _secondCardFormKey = GlobalKey<FormState>();
+  final _thirdCardFormKey = GlobalKey<FormState>();
+  final _fourthCardFormKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -44,7 +49,16 @@ class _KycViewState extends State<KycView> {
             Row(
               children: [
                 IconButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    if (_currentStep > 0) {
+                      _kycPageController.previousPage(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.easeInOut,
+                      );
+                    } else {
+                      Navigator.pop(context);
+                    }
+                  },
                   icon: Icon(Icons.chevron_left),
                 ),
                 SizedBox.shrink(),
@@ -69,10 +83,20 @@ class _KycViewState extends State<KycView> {
                   Row(
                     children: List.generate(_steps.length, (index) {
                       return Expanded(
-                        child: _buildStepIndicator(
-                          title: _steps[index],
-                          isActive: index <= _currentStep,
-                          isLast: index == _steps.length - 1,
+                        child: GestureDetector(
+                          onTap: () {
+                            if (index < _currentStep) {
+                              _kycPageController.animateToPage(
+                                index,
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.easeInOut,
+                              );
+                            }
+                          },
+                          child: _buildStepIndicator(
+                            title: _steps[index],
+                            isActive: index <= _currentStep,
+                          ),
                         ),
                       );
                     }),
@@ -86,14 +110,15 @@ class _KycViewState extends State<KycView> {
             Expanded(
               child: PageView(
                 controller: _kycPageController,
+                physics: NeverScrollableScrollPhysics(),
                 onPageChanged: (index) {
                   setState(() {
                     _currentStep = index;
                   });
                 },
                 children: [
-                  KycFirstCard(),
-                  KycSecondCard(),
+                  KycFirstCard(formKey: _firstCardFormKey),
+                  KycSecondCard(formKey: _secondCardFormKey),
                   KycThirdCard(),
                   KycFourthCard(),
                 ],
@@ -103,7 +128,21 @@ class _KycViewState extends State<KycView> {
             //Next and Submit button
             GestureDetector(
               onTap: () {
-                openKycNextPage();
+                if (_currentStep == 0) {
+                  if (_firstCardFormKey.currentState!.validate()) {
+                    openKycNextPage();
+                  }
+                } else if (_currentStep == 1) {
+                  if (_secondCardFormKey.currentState!.validate()) {
+                    openKycNextPage();
+                  }
+                } else if (_currentStep == 2) {
+                  if (_thirdCardFormKey.currentState!.validate()) {
+                    openKycNextPage();
+                  }
+                } else {
+                  if (_fourthCardFormKey.currentState!.validate()) {}
+                }
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 16),
@@ -136,11 +175,7 @@ class _KycViewState extends State<KycView> {
     );
   }
 
-  Widget _buildStepIndicator({
-    required String title,
-    required bool isActive,
-    required bool isLast,
-  }) {
+  Widget _buildStepIndicator({required String title, required bool isActive}) {
     final color = isActive ? Color(0xff155DFC) : Colors.grey.shade400;
 
     return Container(

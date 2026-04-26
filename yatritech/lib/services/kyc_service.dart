@@ -1,5 +1,5 @@
+import 'dart:async';
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:yatritech/utils/api_constants.dart';
 
@@ -81,5 +81,77 @@ class KycService {
 
     if (response.statusCode == 200) return data;
     throw Exception(data['message'] ?? 'Failed to upload');
+  }
+
+  //SAVE LICENSE STEP
+  Future<Map<String, dynamic>> saveLicense({
+    required Map<String, String> textFields,
+    required String licensePhotoPath,
+  }) async {
+    final url = Uri.parse(
+      '${ApiConstants.baseUrlForKyc}${ApiConstants.saveKycLicenseEndpoint}',
+    );
+
+    final request = http.MultipartRequest('PUT', url);
+
+    request.headers.addAll(_authHeaders);
+    request.fields.addAll(textFields);
+    request.files.add(
+      await http.MultipartFile.fromPath('photo', licensePhotoPath),
+    );
+
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+    final data = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return data;
+    } else {
+      throw Exception(data['message'] ?? "Failed to Upload");
+    }
+  }
+
+  //SAVE VEHICLE STEP
+  Future<Map<String, dynamic>> saveVehicle({
+    required Map<String, String> textFields,
+    required String vehiclePhotoPath,
+    required String bluebookPhotoPath,
+  }) async {
+    final url = Uri.parse(
+      '${ApiConstants.baseUrlForKyc}${ApiConstants.saveKycVehicleEndpoint}',
+    );
+
+    final request = http.MultipartRequest('PUT', url);
+
+    request.headers.addAll(_authHeaders);
+    request.fields.addAll(textFields);
+    request.files.add(
+      await http.MultipartFile.fromPath('vehiclePhoto', vehiclePhotoPath),
+    );
+
+    final streamedResponse = await request.send();
+    final response = await http.Response.fromStream(streamedResponse);
+    final data = jsonDecode(response.body);
+
+    if (response.statusCode == 200) {
+      return data;
+    } else {
+      throw Exception(data['message'] ?? "Failed to Upload");
+    }
+  }
+
+  Future<Map<String, dynamic>> submitKyc() async {
+    final url = Uri.parse(
+      '${ApiConstants.baseUrlForKyc}${ApiConstants.submitKyc}',
+    );
+
+    final request = await http.post(url, headers: _authHeaders);
+    final data = jsonDecode(request.body);
+
+    if (request.statusCode == 200) {
+      return data;
+    } else {
+      throw Exception(data['message'] ?? "Failed to Upload");
+    }
   }
 }
