@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class KycFirstCard extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -68,6 +71,43 @@ class _KycFirstCardState extends State<KycFirstCard> {
     _currentAddressController.dispose();
     _mobileNumberController.dispose();
     super.dispose();
+  }
+
+  //Image Picker Logic
+  File? _image;
+  final _picker = ImagePicker();
+
+  pickImage() async {
+    try {
+      final pickedImage = await _picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 50, // Compress the image quality to help stay under 1MB
+      );
+
+      if (pickedImage != null) {
+        final File file = File(pickedImage.path);
+
+        // Optional: Check exactly if it is under 1MB (1,048,576 bytes)
+        int sizeInBytes = file.lengthSync();
+        if (sizeInBytes > 1048576) {
+          // Show error to user using SnackBar
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Image must be under 1MB')),
+            );
+          }
+          return;
+        }
+
+        setState(() {
+          _image = file;
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Failed to pick Image')));
+    }
   }
 
   @override
@@ -394,83 +434,130 @@ class _KycFirstCardState extends State<KycFirstCard> {
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               SizedBox(height: 8),
-              GestureDetector(
-                onTap: () {
-                  // TODO: Implement file picking logic here
-                  print("Open gallery or camera");
+              FormField<File>(
+                validator: (value) {
+                  if (_image == null) {
+                    return "Please upload your photo";
+                  }
+                  return null;
                 },
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white, // Light cyan/mint background
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: Color(0xff216FFE), // Teal border color
-                      width: 1.5,
-                    ),
-                  ),
-                  child: Column(
-                    
-                    mainAxisAlignment: MainAxisAlignment.center,
+                builder: (formFieldState) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Circular Upload Icon with Shadow
-                      Container(
-                        padding: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.08),
-                              blurRadius: 10,
-                              spreadRadius: 1,
-                              offset: Offset(0, 4),
+                      GestureDetector(
+                        onTap: () async {
+                          //User chose image
+                          await pickImage();
+
+                          //form internal value change
+                          formFieldState.didChange(_image);
+
+                          //validate to see if error exist or not
+                          if (_image != null) {
+                            formFieldState.validate();
+                          }
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                            vertical: 32,
+                            horizontal: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white, // Light cyan/mint background
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: formFieldState.hasError
+                                  ? Colors.red.shade700
+                                  : Color(0xff216FFE), // Teal border color
+                              width: 1.5,
                             ),
-                          ],
-                        ),
-                        child: Icon(
-                          Icons.upload_rounded,
-                          color: Color(0xff216FFE), // Matching teal color
-                          size: 32,
+                          ),
+                          child: _image == null
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    // Circular Upload Icon with Shadow
+                                    Container(
+                                      padding: EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(
+                                              0.08,
+                                            ),
+                                            blurRadius: 10,
+                                            spreadRadius: 1,
+                                            offset: Offset(0, 4),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Icon(
+                                        Icons.upload_rounded,
+                                        color: Color(
+                                          0xff216FFE,
+                                        ), // Matching teal color
+                                        size: 32,
+                                      ),
+                                    ),
+                                    SizedBox(height: 16),
+
+                                    // Main Title
+                                    Text(
+                                      "Click to upload or drag and drop",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Color(
+                                          0xff334155,
+                                        ), // Dark slate-blue text
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: 12),
+
+                                    // Small info pill
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 16,
+                                        vertical: 6,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Text(
+                                        "PNG, JPG up to 1MB",
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.grey.shade600,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Image.file(_image!),
                         ),
                       ),
-                      SizedBox(height: 16),
-
-                      // Main Title
-                      Text(
-                        "Click to upload or drag and drop",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xff334155), // Dark slate-blue text
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 12),
-
-                      // Small info pill
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          "PNG, JPG up to 1MB",
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Colors.grey.shade600,
-                            fontWeight: FontWeight.w400,
+                      //Display red error text
+                      if (formFieldState.hasError)
+                        Padding(
+                          padding: EdgeInsets.only(top: 8, left: 12),
+                          child: Text(
+                            formFieldState.errorText!,
+                            style: TextStyle(
+                              color: Colors.red.shade700,
+                              fontSize: 12,
+                            ),
                           ),
                         ),
-                      ),
                     ],
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),

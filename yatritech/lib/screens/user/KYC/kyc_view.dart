@@ -119,8 +119,8 @@ class _KycViewState extends State<KycView> {
                 children: [
                   KycFirstCard(formKey: _firstCardFormKey),
                   KycSecondCard(formKey: _secondCardFormKey),
-                  KycThirdCard(),
-                  KycFourthCard(),
+                  KycThirdCard(formKey: _thirdCardFormKey,),
+                  KycFourthCard(formKey: _fourthCardFormKey,),
                 ],
               ),
             ),
