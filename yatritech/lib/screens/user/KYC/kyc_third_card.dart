@@ -2,19 +2,52 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yatritech/services/kyc_service.dart';
+import 'package:yatritech/utils/token_util.dart';
 
 class KycThirdCard extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  const KycThirdCard({super.key, required this.formKey});
+  const KycThirdCard({super.key});
 
   @override
-  State<KycThirdCard> createState() => _KycThirdCardState();
+  State<KycThirdCard> createState() => KycThirdCardState();
 }
 
-class _KycThirdCardState extends State<KycThirdCard> {
+class KycThirdCardState extends State<KycThirdCard> {
   final _licenseNumberController = TextEditingController();
   final _issuedDateController = TextEditingController();
   final _placeOfIssueController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  //Connecting to server --->
+
+  Future<bool> handleLicenseStep() async {
+    if (_formKey.currentState!.validate()) {
+      String? _token = await TokenUtil.getToken();
+
+      if (_token == null) return false;
+      final _kycService = KycService(token: _token);
+
+      try {
+        final request = _kycService.saveLicense(
+          textFields: {
+            'licenseNumber': _licenseNumberController.text,
+            'dateOfIssue': _issuedDateController.text,
+            'placeOfIssue': _placeOfIssueController.text,
+          },
+          licensePhotoPath: _licensePhoto!.path,
+        );
+        return true;
+      } catch (e) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: $e')));
+        return false;
+      }
+    }
+    return false;
+  }
+  // <---
 
   String? _validateLicense(String? value) {
     if (value == null || value.isEmpty) {
@@ -100,7 +133,7 @@ class _KycThirdCardState extends State<KycThirdCard> {
       ),
       child: SingleChildScrollView(
         child: Form(
-          key: widget.formKey,
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -2,22 +2,61 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yatritech/services/kyc_service.dart';
+import 'package:yatritech/utils/token_util.dart';
 
 class KycFirstCard extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  const KycFirstCard({super.key, required this.formKey});
+  const KycFirstCard({super.key});
 
   @override
-  State<KycFirstCard> createState() => _KycFirstCardState();
+  State<KycFirstCard> createState() => KycFirstCardState();
 }
 
-class _KycFirstCardState extends State<KycFirstCard> {
+class KycFirstCardState extends State<KycFirstCard> {
   final _fullNameController = TextEditingController();
   final _dobController = TextEditingController();
   final _currentAddressController = TextEditingController();
   final _mobileNumberController = TextEditingController();
   String? _selectedGender;
   String? _selectedNationality;
+
+  final _formKey = GlobalKey<FormState>();
+
+  //Connecting to server --->
+  Future<bool> handlePersonalStep() async {
+    if (_formKey.currentState!.validate()) {
+      final String? _token = await TokenUtil.getToken();
+
+      if (_token == null) return false;
+
+      final _kycService = KycService(token: _token);
+
+      try {
+        final request = _kycService.savePersonalStep(
+          textFields: {
+            'fullName': _fullNameController.text,
+            'dateOfBirth': _dobController.text,
+            'gender': _selectedGender!,
+            'nationality': _selectedNationality!,
+            'currentAddress': _currentAddressController.text,
+            'mobileNumber': _mobileNumberController.text,
+          },
+          photoFilePath: _image!.path,
+        );
+
+        return true;
+      } catch (e) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: $e')));
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  // <---
 
   String? _validateName(String? value) {
     if (value == null || value.isEmpty) {
@@ -128,7 +167,7 @@ class _KycFirstCardState extends State<KycFirstCard> {
       ),
       child: SingleChildScrollView(
         child: Form(
-          key: widget.formKey,
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

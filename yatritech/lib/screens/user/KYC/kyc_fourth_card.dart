@@ -2,20 +2,55 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yatritech/screens/user/KYC/kyc_view.dart';
+import 'package:yatritech/services/kyc_service.dart';
+import 'package:yatritech/utils/token_util.dart';
 
 class KycFourthCard extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  const KycFourthCard({super.key, required this.formKey});
+  const KycFourthCard({super.key});
 
   @override
-  State<KycFourthCard> createState() => _KycFourthCardState();
+  State<KycFourthCard> createState() => KycFourthCardState();
 }
 
-class _KycFourthCardState extends State<KycFourthCard> {
+class KycFourthCardState extends State<KycFourthCard> {
   final _registrationNumberController = TextEditingController();
   final _issuedDateController = TextEditingController();
   final _brandController = TextEditingController();
   final _colorController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  //Connecting to server --->
+  Future<bool> handleVehicleStep() async {
+    if (_formKey.currentState!.validate()) {
+      String? _token = await TokenUtil.getToken();
+
+      if (_token == null) return false;
+      final _kycService = KycService(token: _token);
+
+      try {
+        final request = _kycService.saveVehicle(
+          textFields: {
+            'registrationNumber': _registrationNumberController.text,
+            'dateOfRegistration': _issuedDateController.text,
+            'brand': _brandController.text,
+            'color': _colorController.text,
+          },
+          vehiclePhotoPath: _vehiclePhoto!.path,
+          bluebookPhotoPath: _bluebookPhoto!.path,
+        );
+        return true;
+      } catch (e) {
+         ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: $e')));
+        return false;
+      }
+    }
+    return false;
+  }
+  // <---
 
   String? _validateRegistrationNumber(String? value) {
     if (value == null || value.isEmpty) {
@@ -144,7 +179,7 @@ class _KycFourthCardState extends State<KycFourthCard> {
       ),
       child: SingleChildScrollView(
         child: Form(
-          key: widget.formKey,
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

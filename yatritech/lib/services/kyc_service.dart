@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:yatritech/utils/api_constants.dart';
+import 'package:http_parser/http_parser.dart';
 
 class KycService {
   final String token;
@@ -43,7 +44,11 @@ class KycService {
 
     //add image
     request.files.add(
-      await http.MultipartFile.fromPath('photo', photoFilePath),
+      await http.MultipartFile.fromPath(
+        'photo',
+        photoFilePath,
+        contentType: MediaType('image', 'jpeg'),
+      ),
     );
 
     //send request
@@ -69,10 +74,18 @@ class KycService {
     request.headers.addAll(_authHeaders);
     request.fields.addAll(textFields);
     request.files.add(
-      await http.MultipartFile.fromPath('frontPhoto', frontPhotoPath),
+      await http.MultipartFile.fromPath(
+        'frontPhoto',
+        frontPhotoPath,
+        contentType: MediaType('image', 'jpeg'),
+      ),
     );
     request.files.add(
-      await http.MultipartFile.fromPath('backPhoto', backPhotoPath),
+      await http.MultipartFile.fromPath(
+        'backPhoto',
+        backPhotoPath,
+        contentType: MediaType('image', 'jpeg'),
+      ),
     );
 
     final streamedResponse = await request.send();
@@ -97,7 +110,11 @@ class KycService {
     request.headers.addAll(_authHeaders);
     request.fields.addAll(textFields);
     request.files.add(
-      await http.MultipartFile.fromPath('photo', licensePhotoPath),
+      await http.MultipartFile.fromPath(
+        'photo',
+        licensePhotoPath,
+        contentType: MediaType('image', 'jpeg'),
+      ),
     );
 
     final streamedResponse = await request.send();
@@ -126,7 +143,18 @@ class KycService {
     request.headers.addAll(_authHeaders);
     request.fields.addAll(textFields);
     request.files.add(
-      await http.MultipartFile.fromPath('vehiclePhoto', vehiclePhotoPath),
+      await http.MultipartFile.fromPath(
+        'vehiclePhoto',
+        vehiclePhotoPath,
+        contentType: MediaType('image', 'jpeg'),
+      ),
+    );
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'bluebookPhoto',
+        bluebookPhotoPath,
+        contentType: MediaType('image', 'jpeg'),
+      ),
     );
 
     final streamedResponse = await request.send();

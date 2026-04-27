@@ -4,7 +4,7 @@ class TokenUtil {
   //Get the saved token
   static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.getString('jwt_token');
+    return prefs.getString('jwt_token');
   }
 
   //Delete the token (Logout)

@@ -2,19 +2,52 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yatritech/services/kyc_service.dart';
+import 'package:yatritech/utils/token_util.dart';
 
 class KycSecondCard extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
-  const KycSecondCard({super.key, required this.formKey});
+  const KycSecondCard({super.key});
 
   @override
-  State<KycSecondCard> createState() => _KycSecondCardState();
+  State<KycSecondCard> createState() => KycSecondCardState();
 }
 
-class _KycSecondCardState extends State<KycSecondCard> {
+class KycSecondCardState extends State<KycSecondCard> {
   final _citizenshipNumberController = TextEditingController();
   final _dateOfIssueController = TextEditingController();
   final _placeOfIssueController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  //Connecting to server --->
+  Future<bool> handleCitizenshipStep() async {
+    if (_formKey.currentState!.validate()) {
+      String? _token = await TokenUtil.getToken();
+      if (_token == null) return false;
+
+      final _kycService = KycService(token: _token);
+      try {
+        final request = await _kycService.saveCitizenship(
+          textFields: {
+            'citizenshipNumber': _citizenshipNumberController.text,
+            'dateOfIssue': _dateOfIssueController.text,
+            'placeOfIssue': _placeOfIssueController.text,
+          },
+          frontPhotoPath: _frontPhoto!.path,
+          backPhotoPath: _backPhoto!.path,
+        );
+        return true;
+      } catch (e) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('$e')));
+        return false;
+      }
+    }
+    return false;
+  }
+
+  // <---
 
   String? _validateCitizenship(String? value) {
     if (value == null || value.isEmpty) {
@@ -134,7 +167,7 @@ class _KycSecondCardState extends State<KycSecondCard> {
       ),
       child: SingleChildScrollView(
         child: Form(
-          key: widget.formKey,
+          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

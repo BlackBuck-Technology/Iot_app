@@ -3,6 +3,7 @@ import 'package:yatritech/screens/user/KYC/kyc_first_card.dart';
 import 'package:yatritech/screens/user/KYC/kyc_fourth_card.dart';
 import 'package:yatritech/screens/user/KYC/kyc_second_card.dart';
 import 'package:yatritech/screens/user/KYC/kyc_third_card.dart';
+import 'package:yatritech/screens/user/bottom_nav.dart';
 
 class KycView extends StatefulWidget {
   const KycView({super.key});
@@ -11,19 +12,21 @@ class KycView extends StatefulWidget {
   State<KycView> createState() => _KycViewState();
 }
 
+//TODO: Make a separate submit form in page view to submit because all datas are just PUT and not posted using POST endpoint
 class _KycViewState extends State<KycView> {
   //pagination
   int _currentStep = 0;
+
+  //Global Card Key
+  final _firstCardKey = GlobalKey<KycFirstCardState>();
+  final _secondCardKey = GlobalKey<KycSecondCardState>();
+  final _thirdCardKey = GlobalKey<KycThirdCardState>();
+  final _fourthCardKey = GlobalKey<KycFourthCardState>();
+
   final List<String> _steps = ['Personal', 'Citizenship', 'License', 'Vehicle'];
 
   //page view controller
   final PageController _kycPageController = PageController();
-
-  //Form Key
-  final _firstCardFormKey = GlobalKey<FormState>();
-  final _secondCardFormKey = GlobalKey<FormState>();
-  final _thirdCardFormKey = GlobalKey<FormState>();
-  final _fourthCardFormKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -117,31 +120,46 @@ class _KycViewState extends State<KycView> {
                   });
                 },
                 children: [
-                  KycFirstCard(formKey: _firstCardFormKey),
-                  KycSecondCard(formKey: _secondCardFormKey),
-                  KycThirdCard(formKey: _thirdCardFormKey,),
-                  KycFourthCard(formKey: _fourthCardFormKey,),
+                  KycFirstCard(key: _firstCardKey),
+                  KycSecondCard(key: _secondCardKey),
+                  KycThirdCard(key: _thirdCardKey),
+                  KycFourthCard(key: _fourthCardKey),
                 ],
               ),
             ),
 
             //Next and Submit button
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 if (_currentStep == 0) {
-                  if (_firstCardFormKey.currentState!.validate()) {
+                  bool success = await _firstCardKey.currentState!
+                      .handlePersonalStep();
+
+                  if (success) {
                     openKycNextPage();
                   }
                 } else if (_currentStep == 1) {
-                  if (_secondCardFormKey.currentState!.validate()) {
+                  bool success = await _secondCardKey.currentState!
+                      .handleCitizenshipStep();
+
+                  if (success) {
                     openKycNextPage();
                   }
                 } else if (_currentStep == 2) {
-                  if (_thirdCardFormKey.currentState!.validate()) {
+                  bool success = await _thirdCardKey.currentState!
+                      .handleLicenseStep();
+                  if (success) {
                     openKycNextPage();
                   }
                 } else {
-                  if (_fourthCardFormKey.currentState!.validate()) {}
+                  bool success = await _fourthCardKey.currentState!
+                      .handleVehicleStep();
+                  if (success) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => BottomNav()),
+                    );
+                  }
                 }
               },
               child: Container(
