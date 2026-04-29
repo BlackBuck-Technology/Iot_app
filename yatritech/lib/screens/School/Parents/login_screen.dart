@@ -8,11 +8,21 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _phoneController = TextEditingController();
+  final _otpController = TextEditingController();
+
+  bool _isLoading = false;
+
+  void _sendOTP() {
+    if (_phoneController.text.length < 10) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(),
-    );
+    return Scaffold(backgroundColor: Colors.white, appBar: AppBar());
   }
 }
