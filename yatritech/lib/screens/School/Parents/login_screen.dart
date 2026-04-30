@@ -11,6 +11,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _phoneController = TextEditingController();
   final _otpController = TextEditingController();
 
+  bool _otpSent = false;
   bool _isLoading = false;
 
   void _sendOTP() {
@@ -18,6 +19,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() {
       _isLoading = true;
+    });
+
+    //mock api call for sending otp
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _otpSent = true;
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("OTP sent successfully!")));
     });
   }
 
