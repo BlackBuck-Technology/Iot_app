@@ -33,6 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  void _verifyOTPAndLogin() {
+    if (_otpController.text.length < 4) return;
+
+    setState(() {
+      _isLoading = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(backgroundColor: Colors.white, appBar: AppBar());
