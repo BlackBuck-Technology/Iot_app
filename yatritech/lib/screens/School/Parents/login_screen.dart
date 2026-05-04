@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yatritech/screens/School/Parents/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -38,6 +39,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() {
       _isLoading = true;
+    });
+
+    //Mock API call for verifying OTP
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+
+      //Navigate to Parent Home Screen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
     });
   }
 
