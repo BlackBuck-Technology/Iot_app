@@ -55,6 +55,13 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
+  void _loginWithGoogle() {
+    //Mock Google Login
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("Google Login initiated...")));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(backgroundColor: Colors.white, appBar: AppBar());
