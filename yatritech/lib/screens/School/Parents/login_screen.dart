@@ -63,7 +63,22 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
+  void dispose() {
+    _phoneController.dispose();
+    _otpController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.white, appBar: AppBar());
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text("Parent Login"),
+        backgroundColor: Colors.teal.shade700,
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
+    );
   }
 }
