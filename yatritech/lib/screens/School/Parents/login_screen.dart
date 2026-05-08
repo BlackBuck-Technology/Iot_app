@@ -79,6 +79,24 @@ class _LoginScreenState extends State<LoginScreen> {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 40),
+              //App Logo
+              Icon(
+                Icons.family_restroom,
+                size: 80,
+                color: Colors.teal.shade700,
+              ),
+              const SizedBox(height: 24,),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
