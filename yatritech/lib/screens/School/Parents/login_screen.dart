@@ -102,12 +102,25 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text(
                 "Secure connection for your chils\'s safety",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
+
+              // Phone Number Input
+              TextField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                enabled: !_otpSent,
+                decoration: InputDecoration(
+                  labelText: 'Phone Number',
+                  prefixIcon: const Icon(Icons.phone),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
               ),
-              const SizedBox(height: 8,)
+
+              const SizedBox(height: 16),
             ],
           ),
         ),
