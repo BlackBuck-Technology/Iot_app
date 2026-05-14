@@ -136,6 +136,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ],
+
+              //Primary Action Button
+              SizedBox(
+                height: 56,
+                child: ElevatedButton(
+                  onPressed: _isLoading
+                      ? null
+                      : (_otpSent ? _verifyOTPAndLogin : _sendOTP),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.teal.shade700,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: _isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : Text(
+                          _otpSent ? 'Verify & Login' : 'Send OTP',
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                ),
+              ),
             ],
           ),
         ),
