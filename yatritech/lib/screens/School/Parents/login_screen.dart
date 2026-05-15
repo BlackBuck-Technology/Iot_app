@@ -159,6 +159,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                 ),
               ),
+
+              const SizedBox(height: 32),
+
+              //Divider for alternative logins
+              Row(
+                children: [
+                  Expanded(child: Divider()),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Text("OR", style: TextStyle(color: Colors.grey)),
+                  ),
+                  Expanded(child: Divider()),
+                ],
+              ),
+
+              const SizedBox(height: 32),
             ],
           ),
         ),
