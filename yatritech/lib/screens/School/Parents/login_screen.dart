@@ -175,6 +175,15 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               const SizedBox(height: 32),
+
+              //Google login Button
+              SizedBox(
+                height: 56,
+                child: OutlinedButton.icon(
+                  onPressed: _isLoading ? null : _loginWithGoogle,
+                  label: Text("Continue with Google"),
+                ),
+              ),
             ],
           ),
         ),
