@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+
+class Dashboard extends StatefulWidget {
+  const Dashboard({super.key});
+
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
+  bool isTripActive = false;
+  int studentsBoarded = 12;
+  int totalStudents = 45;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(title: const Text('Conductor Dashboard')),
+    );
+  }
+}
