@@ -15,7 +15,19 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
-      appBar: AppBar(title: const Text('Conductor Dashboard')),
+      appBar: AppBar(
+        title: const Text('Conductor Dashboard'),
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+          IconButton(onPressed: (){}, icon: const Icon(Icons.person))
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(padding: const EdgeInsets.all(16)),
+      ),
     );
   }
 }
