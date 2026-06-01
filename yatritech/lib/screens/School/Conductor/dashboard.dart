@@ -22,11 +22,26 @@ class _DashboardState extends State<Dashboard> {
         elevation: 0,
         actions: [
           IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-          IconButton(onPressed: (){}, icon: const Icon(Icons.person))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(padding: const EdgeInsets.all(16)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTripStatusCard() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isTripActive ? Colors.green.shade600 : Colors.orange.shade600,
       ),
     );
   }
