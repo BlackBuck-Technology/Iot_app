@@ -42,6 +42,30 @@ class _DashboardState extends State<Dashboard> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: isTripActive ? Colors.green.shade600 : Colors.orange.shade600,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                isTripActive ? 'Trip in Progress' : 'Trip Not Started',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 4),
+              const Text(
+                'Morning Shift - Route 4',
+                style: TextStyle(color: Colors.white70, fontSize: 14),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
