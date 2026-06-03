@@ -65,8 +65,43 @@ class _DashboardState extends State<Dashboard> {
               ),
             ],
           ),
+          Switch(
+            value: isTripActive,
+            activeColor: Colors.white,
+            onChanged: (value) {
+              setState(() {
+                isTripActive = value;
+              });
+            },
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _buildStatsRow() {
+    return Row(
+      children: [
+        Expanded(
+          child: _buildStatCard(
+            title: 'Boarded',
+            value: studentsBoarded.toString(),
+            icon: Icons.check_circle_outline,
+            color: Colors.green,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatCard({
+    required String title,
+    required String value,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
     );
   }
 }
