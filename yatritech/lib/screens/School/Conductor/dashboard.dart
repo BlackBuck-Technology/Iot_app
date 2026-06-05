@@ -80,6 +80,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Widget _buildStatsRow() {
+    int remaining = totalStudents = studentsBoarded;
     return Row(
       children: [
         Expanded(
@@ -88,6 +89,15 @@ class _DashboardState extends State<Dashboard> {
             value: studentsBoarded.toString(),
             icon: Icons.check_circle_outline,
             color: Colors.green,
+          ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: _buildStatCard(
+            title: 'remaining',
+            value: remaining.toString(),
+            icon: Icons.pending_actions,
+            color: Colors.orange,
           ),
         ),
       ],
@@ -114,6 +124,11 @@ class _DashboardState extends State<Dashboard> {
           Text(
             value,
             style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            title,
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
           ),
         ],
       ),
