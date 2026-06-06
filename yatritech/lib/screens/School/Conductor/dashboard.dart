@@ -100,6 +100,15 @@ class _DashboardState extends State<Dashboard> {
             color: Colors.orange,
           ),
         ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: _buildStatCard(
+            title: 'Total',
+            value: totalStudents.toString(),
+            icon: Icons.groups,
+            color: Colors.indigo,
+          ),
+        ),
       ],
     );
   }
@@ -132,6 +141,18 @@ class _DashboardState extends State<Dashboard> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildQuickActions() {
+    return GridView.count(
+      crossAxisCount: 2,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      crossAxisSpacing: 16,
+      mainAxisSpacing: 16,
+      childAspectRatio: 1.3,
+      
     );
   }
 }
