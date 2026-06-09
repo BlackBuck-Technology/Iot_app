@@ -152,7 +152,21 @@ class _DashboardState extends State<Dashboard> {
       crossAxisSpacing: 16,
       mainAxisSpacing: 16,
       childAspectRatio: 1.3,
-      children: [],
+      children: [
+        _buildActionCard(
+          title: 'Scan QR',
+          icon: Icons.qr_code_scanner,
+          color: Colors.purple,
+          onTap: () {},
+        ),
+
+        _buildActionCard(
+          title: 'Student List',
+          icon: Icons.list_alt,
+          color: Colors.blue,
+          onTap: () {},
+        ),
+      ],
     );
   }
 
