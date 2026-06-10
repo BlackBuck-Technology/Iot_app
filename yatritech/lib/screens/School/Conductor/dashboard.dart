@@ -166,6 +166,20 @@ class _DashboardState extends State<Dashboard> {
           color: Colors.blue,
           onTap: () {},
         ),
+
+        _buildActionCard(
+          title: 'Route Map',
+          icon: Icons.map,
+          color: Colors.teal,
+          onTap: () {},
+        ),
+
+        _buildActionCard(
+          title: 'Emergency',
+          icon: Icons.warning_amber_rounded,
+          color: Colors.red,
+          onTap: () {},
+        ),
       ],
     );
   }
