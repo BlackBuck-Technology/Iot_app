@@ -30,7 +30,15 @@ class _DashboardState extends State<Dashboard> {
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [],
+            children: [
+              _buildTripStatusCard(),
+              const SizedBox(height: 24),
+              const Text(
+                'Student Statistics',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 12,),
+            ],
           ),
         ),
       ),
