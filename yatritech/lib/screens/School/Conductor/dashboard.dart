@@ -37,7 +37,13 @@ class _DashboardState extends State<Dashboard> {
                 'Student Statistics',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 12),
+              const Text(
+                'Quick Actions',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 12,),
+              _buildQuickActions()
             ],
           ),
         ),
