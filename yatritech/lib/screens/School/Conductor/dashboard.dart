@@ -108,7 +108,7 @@ class _DashboardState extends State<Dashboard> {
         const SizedBox(width: 12),
         Expanded(
           child: _buildStatCard(
-            title: 'remaining',
+            title: 'Remaining',
             value: remaining.toString(),
             icon: Icons.pending_actions,
             color: Colors.orange,
@@ -124,23 +124,7 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
         const SizedBox(width: 12),
-        Expanded(
-          child: _buildStatCard(
-            title: "Remaining",
-            value: remaining.toString(),
-            icon: Icons.pending_actions,
-            color: Colors.orange,
-          ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: _buildStatCard(
-            title: 'Total',
-            value: totalStudents.toString(),
-            icon: Icons.groups,
-            color: Colors.indigo,
-          ),
-        ),
+        
       ],
     );
   }
