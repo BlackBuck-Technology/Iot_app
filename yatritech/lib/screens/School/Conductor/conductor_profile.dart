@@ -13,11 +13,14 @@ class ConductorProfile extends StatelessWidget {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [],
-        ),
-      ),
+      body: SingleChildScrollView(child: Column(children: [])),
+    );
+  }
+
+  Widget _buildProfileHeader() {
+    return Container(
+      width: double.infinity,
+      color: Colors.indigo,
     );
   }
 }
