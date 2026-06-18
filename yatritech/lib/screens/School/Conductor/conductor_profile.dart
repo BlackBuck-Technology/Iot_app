@@ -21,6 +21,12 @@ class ConductorProfile extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: Colors.indigo,
+      padding: const EdgeInsets.only(bottom: 30, top: 20),
+      child: Column(
+        children: [
+          const CircleAvatar()
+        ],
+      ),
     );
   }
 }
