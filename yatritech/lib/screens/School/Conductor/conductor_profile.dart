@@ -30,6 +30,14 @@ class ConductorProfile extends StatelessWidget {
             child: Icon(Icons.person, size: 60, color: Colors.indigo),
           ),
           const SizedBox(height: 16),
+          const Text(
+            "Pujan Dhakal",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
