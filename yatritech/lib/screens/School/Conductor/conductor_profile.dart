@@ -38,6 +38,14 @@ class ConductorProfile extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          const SizedBox(height: 8),
+          Text(
+            'Conductor ID: CND-84920',
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.8),
+              fontSize: 16,
+            ),
+          ),
         ],
       ),
     );
