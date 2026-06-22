@@ -50,4 +50,17 @@ class ConductorProfile extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildInfoSection() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: Colors.grey.shade200),
+        ),
+      ),
+    );
+  }
 }
