@@ -60,7 +60,15 @@ class ConductorProfile extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.grey.shade200),
         ),
+        child: Column(children: [
+
+          ],
+        ),
       ),
     );
+  }
+
+  Widget _buildListTile() {
+    return ListTile();
   }
 }
