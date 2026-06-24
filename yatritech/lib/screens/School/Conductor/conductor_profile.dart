@@ -68,7 +68,17 @@ class ConductorProfile extends StatelessWidget {
     );
   }
 
-  Widget _buildListTile() {
-    return ListTile();
+  Widget _buildListTile(IconData icon, String title) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.indigo, size: 28),
+      title: Text(
+        title,
+        style: TextStyle(
+          color: Colors.grey.shade600,
+          fontSize: 13,
+          height: 1.5,
+        ),
+      ),
+    );
   }
 }
