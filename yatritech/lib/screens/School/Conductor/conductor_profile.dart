@@ -68,7 +68,7 @@ class ConductorProfile extends StatelessWidget {
     );
   }
 
-  Widget _buildListTile(IconData icon, String title) {
+  Widget _buildListTile(IconData icon, String title, String subtitle) {
     return ListTile(
       leading: Icon(icon, color: Colors.indigo, size: 28),
       title: Text(
@@ -77,6 +77,14 @@ class ConductorProfile extends StatelessWidget {
           color: Colors.grey.shade600,
           fontSize: 13,
           height: 1.5,
+        ),
+      ),
+      subtitle: Text(
+        subtitle,
+        style: const TextStyle(
+          color: Colors.black87,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
