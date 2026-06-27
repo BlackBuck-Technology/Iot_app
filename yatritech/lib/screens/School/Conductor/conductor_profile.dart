@@ -51,7 +51,7 @@ class ConductorProfile extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoSection() {
+  Widget _buildActionSection() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
@@ -62,7 +62,10 @@ class ConductorProfile extends StatelessWidget {
         ),
         child: Column(
           children: [
-            ListTile(leading: const Icon(Icons.settings, color: Colors.indigo)),
+            ListTile(
+              leading: const Icon(Icons.settings, color: Colors.indigo),
+              title: const Text('Settings'),
+            ),
           ],
         ),
       ),
