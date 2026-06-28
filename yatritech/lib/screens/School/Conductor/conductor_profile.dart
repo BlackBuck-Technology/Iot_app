@@ -65,6 +65,11 @@ class ConductorProfile extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.settings, color: Colors.indigo),
               title: const Text('Settings'),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+                color: Colors.grey,
+              ),
             ),
           ],
         ),
