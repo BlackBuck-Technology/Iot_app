@@ -73,6 +73,7 @@ class ConductorProfile extends StatelessWidget {
               onTap: () {},
             ),
             const Divider(height: 1),
+            ListTile(leading: const Icon(Icons.settings, color: Colors.indigo)),
           ],
         ),
       ),
