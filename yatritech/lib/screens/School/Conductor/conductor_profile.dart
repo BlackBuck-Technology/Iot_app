@@ -73,7 +73,16 @@ class ConductorProfile extends StatelessWidget {
               onTap: () {},
             ),
             const Divider(height: 1),
-            ListTile(leading: const Icon(Icons.settings, color: Colors.indigo)),
+            ListTile(
+              leading: const Icon(Icons.settings, color: Colors.indigo),
+              title: const Text(
+                "Log Out",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),
