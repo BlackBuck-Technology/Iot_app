@@ -51,6 +51,10 @@ class ConductorProfile extends StatelessWidget {
     );
   }
 
+  Widget _buildInfoSection() {
+    return Padding(padding: const EdgeInsets.symmetric(horizontal: 16));
+  }
+
   Widget _buildActionSection() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -82,6 +86,7 @@ class ConductorProfile extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              onTap: () {},
             ),
           ],
         ),
