@@ -64,7 +64,8 @@ class ConductorProfile extends StatelessWidget {
           children: [
             _buildListTile(Icons.phone, "Phone Number", "+977 987654321"),
             const Divider(height: 1,),
-            _buildListTile(Icons.email, 'Email Address', "dhakalpujan72@gmail.com")
+            _buildListTile(Icons.email, 'Email Address', "dhakalpujan72@gmail.com"),
+            const Divider(height: 1,),
           ],
         ),
       ),
