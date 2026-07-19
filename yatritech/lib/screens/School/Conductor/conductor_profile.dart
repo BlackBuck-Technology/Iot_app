@@ -75,6 +75,8 @@ class ConductorProfile extends StatelessWidget {
               'Assigned Bus',
               'Bus #45 (Plate: XYZ-2344)',
             ),
+            const Divider(height: 1,),
+            _buildListTile(Icons.route, "Current Route", "Route 4 - Morning Shift"),
           ],
         ),
       ),
