@@ -13,10 +13,16 @@ class ConductorProfile extends StatelessWidget {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-      body: SingleChildScrollView(child: Column(children: [
-        _buildProfileHeader(),
-        const SizedBox(height: 20,),
-      ])),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildProfileHeader(),
+            const SizedBox(height: 20),
+            _buildInfoSection(),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
     );
   }
 
@@ -78,8 +84,12 @@ class ConductorProfile extends StatelessWidget {
               'Assigned Bus',
               'Bus #45 (Plate: XYZ-2344)',
             ),
-            const Divider(height: 1,),
-            _buildListTile(Icons.route, "Current Route", "Route 4 - Morning Shift"),
+            const Divider(height: 1),
+            _buildListTile(
+              Icons.route,
+              "Current Route",
+              "Route 4 - Morning Shift",
+            ),
           ],
         ),
       ),
