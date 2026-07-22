@@ -20,6 +20,8 @@ class ConductorProfile extends StatelessWidget {
             const SizedBox(height: 20),
             _buildInfoSection(),
             const SizedBox(height: 20),
+            _buildActionSection(),
+            const SizedBox(height: 40,),
           ],
         ),
       ),
